@@ -1,0 +1,103 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<form action="/Home/SinavOlustur" method="post">
+        <div class="form-group m-form__group ">
+            @if (ViewBag.RSS != null)
+            {
+                int i = 0;
+                <div class="col-sm-12">
+                    <label>Yazı</label>
+                    <select id="description" name="description" class="form-control selectpicker" onchange="soruOlustur(this)" >
+                        <option id="" value="">Seçiniz</option>
+                        @foreach (var item in ViewBag.RSS)
+                        {
+                            if (i < 5)
+                            {
+                              
+                                <option value="@item.description">@item.title</option>
+                                i++;
+                            }
+                            else break;
+                        }
+                    </select>
+                </div>
+            }
+            <div class="form-group m-form__group ">
+                <div id="ModalBody" class="modal-body ">
+                </div>
+                <div id="ModalBody2" class="modal-body ">
+                </div>
+            </div>
+
+            <div class="sinavbuton">
+                <button id="submitbutton"  type="submit">Sınavı Oluştur.</button>
+            </div>
+
+        </div>
+</form>
+
+        @section Scripts {
+            <script>
+                
+                function soruOlustur(target) {
+                    var description = $(target).val();                  
+                    var text = "";
+                    var str = '<div class="form-group m-form__group row">                                                                                          ' +
+                        '<div class="col-lg-12 m-form__group-sub">                                                                                                                  ' +
+                        '    <label class=" col-form-label ">' + description + '</label>                          ' +
+                        '</div>                                                                                                                                                    ' +
+                        '</div>';
+                    
+                    for (var i = 1; i < 5; i++) {
+                        text +=  '<div class="form-group m-form__group row">                                                                                          ' +
+                        '<div class=" col-lg-12 m-form__group-sub">                                                                                                                  ' +
+                        '   <textarea rows="1" cols="10" class="form-control m-input m-input--air m-input--pill" id="soru" name="soru" placeholder="Soru '+i+'" required ></textarea>                   ' +
+                        '                    </div>   ' +
+
+
+                        '<div class="col-lg-6 m-form__group-sub">                                                                                                                  ' +
+                        '     <input class="form-control m-input m-input--air m-input--pill" id="secenek" name="secenek" required placeholder="A:">                          ' +
+                        '</div>                                                                                                                                                    ' +
+                        '<div class="col-lg-6 m-form__group-sub">                                                                                                                  ' +
+                        '     <input class="form-control m-input m-input--air m-input--pill" id="secenek" name="secenek" required placeholder="B:">                          ' +
+                        '</div>                                                                                                                                                    ' +
+                        '<div class="col-lg-6 m-form__group-sub">                                                                                                                  ' +
+                        '     <input class="form-control m-input m-input--air m-input--pill" id="secenek" name="secenek" required placeholder="C:">                         ' +
+                        '</div>                                                                                                                                                    ' +
+                        '<div class="col-lg-6 m-form__group-sub">                                                                                                                  ' +
+                        '    <input class="form-control m-input m-input--air m-input--pill" id="secenek" name="secenek" required placeholder="D:">                          ' +
+                        '</div>                                                                                                                                                    ' +
+
+                        '<div class="col-lg-3 m-form__group-sub">                                                                                             ' +
+                        '</div>                                                                                                                               ' +
+                        '<div class="col-lg-7 m-form__group-sub">                                                                                             ' +
+                        '     <select id="cevap" name="cevap" class="form-control selectpicker" required>' +
+                        '   <option id="" value="">Doğru Cevap Seçiniz</option>        ' +
+                        '   <option id="" value="A">A</option>        ' +
+                        '   <option id="" value="B">B</option>        ' +
+                        '   <option id="" value="C">C</option>        ' +
+                        '   <option id="" value="D">D</option>        ' +
+                        '</select>' +
+                        '</div>                                                                                                                               ' +
+
+                        '</div> '
+
+
+
+                            + "<br>";
+                        
+
+                    }
+                    $('#ModalBody').html('');
+                    $('#ModalBody').html(str);
+                    $('#ModalBody2').html('');
+                    $('#ModalBody2').html(text);
+
+
+                }
+                
+
+            </script>
+        }
